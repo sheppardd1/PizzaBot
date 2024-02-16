@@ -70,11 +70,12 @@ async def get_input(interaction, item: str):
     # if user is requesting total number of pizzas to order, divide total by SLICES_PER_PIZZA and round up
     elif item.upper() == "TOTAL":
         sum_slices = sum(slices.values())
-        num_pizzas = -(-sum_slices // SLICES_PER_PIZZA)
-        msg = f"We need to buy {num_pizzas} pizzas."
-        # if nonzero slices requested, print value
-        if num_pizzas != 0:
-            msg += f"\n\nPlease enter the total cost of the pizzas (example: \"/pizza $12.34\")."
+        if sum_slices == 0:
+            await interaction.response.send_message("Error: No slices have been requested yet.")
+        else:
+            num_pizzas = -(-sum_slices // SLICES_PER_PIZZA)
+            msg = f"We need to buy {num_pizzas} pizzas."
+            msg += f"\n\nPlease enter the total cost of the pizzas (example: `/pizza $12.34`)."
             await interaction.response.send_message(msg)
     # if user entered money value (starts with '$')
     elif item.startswith('$') and is_float(item[1:]):
@@ -119,18 +120,18 @@ async def get_input(interaction, item: str):
 
         # don't divide by 0
         else:
-            await interaction.response.send_message("Error: The total number of requested slices is 0.")
+            await interaction.response.send_message("Error: No slices have been requested yet.")
     
     # else, command is invalid - print help menu
     else:
         await interaction.response.send_message('Welcome to the pizza ordering bot! \n'
             'Enter a command like this: "/pizza <command>"\n\n'
             'Here are the available commands:\n'
-            '`help`: Display this help message.\n'
-            '`reset`: Reset all variables.\n'
-            '`total`: Calculate the number of pizzas needed and prompt for the total cost.\n'
-            '`$<cost>`: Store the total cost and calculate how much each user owes.\n'
-            '`<number>`: Store the number in the slices array.') 
+            '`/pizza help` (Display this help message.)\n'
+            '`/pizza reset` (Reset all values.)\n'
+            '`/pizza total` (Calculate the number of pizzas needed.)\n'
+            '`/pizza $N` (Set the total cost to $N and calculate how much each person owes.)\n'
+            '`/pizza N` (Request N slices.)') 
 
 # tell us when everything is ready to go
 @client.event
