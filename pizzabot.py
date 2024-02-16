@@ -20,6 +20,8 @@ A few notes:
  - If a user calls the bot with a number multiple times, their "slices" array value will be updated, not appended to the array.
  - If a user runs the bot with a bad argument, print out a little help menu.
  - Your guild's ID and the bot's key value must be stored in a file called key.py in the same directory as this script.
+
+Is it well-organized and optimized? No. Does it work? Yes (I think so).
 '''
 
 import discord                      # pip install discord.py
@@ -74,8 +76,12 @@ async def get_input(interaction, item: str):
             await interaction.response.send_message("Error: No slices have been requested yet.")
         else:
             num_pizzas = -(-sum_slices // SLICES_PER_PIZZA)
-            msg = f"We need to buy {num_pizzas} pizzas."
-            msg += f"\n\nPlease enter the total cost of the pizzas (example: `/pizza $12.34`)."
+            if num_pizzas == 1:
+                msg = f"We need to buy {num_pizzas} pizza."
+                msg += f"\nPlease enter the total cost of the pizza (example: `/pizza $12.34`)."
+            else:
+                msg = f"We need to buy {num_pizzas} pizzas."
+                msg += f"\nPlease enter the total cost of the pizzas (example: `/pizza $12.34`)."
             await interaction.response.send_message(msg)
     # if user entered money value (starts with '$')
     elif item.startswith('$') and is_float(item[1:]):
@@ -86,7 +92,10 @@ async def get_input(interaction, item: str):
             # do the 'total' calculations in case user didn't run that function yet
             sum_slices = sum(slices.values())
             num_pizzas = -(-sum_slices // SLICES_PER_PIZZA)
-            results = f"We need to buy {num_pizzas} pizzas.\n"
+            if num_pizzas == 1:
+                results = f"We need to buy {num_pizzas} pizza.\n"
+            else:
+                results = f"We need to buy {num_pizzas} pizzas.\n"
 
             # get percentage of ordered slices to total slices
             slice_ratio = sum_slices / (num_pizzas * SLICES_PER_PIZZA)
@@ -125,13 +134,13 @@ async def get_input(interaction, item: str):
     # else, command is invalid - print help menu
     else:
         await interaction.response.send_message('Welcome to the pizza ordering bot! \n'
-            'Enter a command like this: "/pizza <command>"\n\n'
+            'Enter a command like this: `/pizza <command>`\n'
             'Here are the available commands:\n'
-            '`/pizza help` (Display this help message.)\n'
-            '`/pizza reset` (Reset all values.)\n'
-            '`/pizza total` (Calculate the number of pizzas needed.)\n'
-            '`/pizza $N` (Set the total cost to $N and calculate how much each person owes.)\n'
-            '`/pizza N` (Request N slices.)') 
+            '`/pizza help` (Display this help message)\n'
+            '`/pizza reset` (Reset all values)\n'
+            '`/pizza total` (Calculate the number of pizzas needed)\n'
+            '`/pizza $N` (Set the total cost to $N and calculate how much each person owes)\n'
+            '`/pizza N` (Request N slices)') 
 
 # tell us when everything is ready to go
 @client.event
