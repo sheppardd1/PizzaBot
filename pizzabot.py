@@ -19,14 +19,14 @@ Usage examples:
 A few notes:
  - If a user calls the bot with a number multiple times, their "slices" array value will be updated, not appended to the array.
  - If a user runs the bot with a bad argument, print out a little help menu.
- - Your guild's ID and the bot's key value must be stored in a file called key.py in the same directory as this script.
+ - Your guild's ID and the bot's key value must be stored in a file called keys.py in the same directory as this script.
 
 Is it well-organized and optimized? No. Does it work? Yes (I think so).
 '''
 
 import discord                      # pip install discord.py
 from discord import app_commands
-from keys import my_guild, bot_id   # this is the local key.py file that should be saved in same directory
+from keys import my_guild, bot_id   # this is the local keys.py file that should be saved in same directory
 
 # initiate values for later use
 slices = {}

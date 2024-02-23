@@ -21,4 +21,4 @@ A Discord bot for organizing pizza ordering
 ## A few notes:
  - If a user calls the bot with a number multiple times, their "slices" array value will be updated, not appended to the array.
  - If a user runs the bot with a bad argument, print out a little help menu.
- - Your guild's ID and the bot's key value must be stored in a file called key.py in the same directory as this script.
+ - Your guild's ID and the bot's key value must be stored in a file called keys.py in the same directory as this script.
