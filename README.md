@@ -40,5 +40,5 @@ A Discord bot for organizing pizza ordering
     - Algorithm 2: Alice pays $5.62 for her 2 slices. Bob pays $4.38 for his 1 slice. 5 extra slices remain.
        - The cost per slice is $1.25
        - The cost of the extras is $6.25 total
-       - Alice: ordered 2 slices, so she pays $2.50 of those 2 slices plus $3.125 (half the cost of the extra slices).
+       - Alice: ordered 2 slices, so she pays $2.50 for those 2 slices plus $3.125 (half the cost of the extra slices).
        - Bob: ordered 1 slice, so he pays $1.25 for that slice plus $3.125 (half the cost of the extra slices).
